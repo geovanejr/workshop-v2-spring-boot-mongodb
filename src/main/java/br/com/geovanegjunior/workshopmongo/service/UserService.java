@@ -40,4 +40,10 @@ public class UserService {
 
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
+
+    public void deleteUser(String id) {
+
+        findById(id);
+        userRepository.deleteById(id);
+    }
 }
