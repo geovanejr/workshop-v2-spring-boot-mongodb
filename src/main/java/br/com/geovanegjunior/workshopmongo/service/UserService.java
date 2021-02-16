@@ -1,6 +1,7 @@
 package br.com.geovanegjunior.workshopmongo.service;
 
 import br.com.geovanegjunior.workshopmongo.domain.User;
+import br.com.geovanegjunior.workshopmongo.dto.UserDTO;
 import br.com.geovanegjunior.workshopmongo.repository.UserRepository;
 import br.com.geovanegjunior.workshopmongo.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,15 @@ public class UserService {
             throw new ObjectNotFoundException("Usuário não encontrado");
         }
         return user.get();
+    }
+
+    public User insertUser(User user) {
+
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
+
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
