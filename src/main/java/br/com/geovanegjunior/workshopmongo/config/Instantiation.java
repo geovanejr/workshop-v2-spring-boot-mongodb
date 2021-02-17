@@ -3,6 +3,7 @@ package br.com.geovanegjunior.workshopmongo.config;
 import br.com.geovanegjunior.workshopmongo.domain.Post;
 import br.com.geovanegjunior.workshopmongo.domain.User;
 import br.com.geovanegjunior.workshopmongo.dto.AuthorDTO;
+import br.com.geovanegjunior.workshopmongo.dto.CommentDTO;
 import br.com.geovanegjunior.workshopmongo.repository.PostRepository;
 import br.com.geovanegjunior.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,13 @@ public class Instantiation implements CommandLineRunner {
         Post post2 = new Post(null, sdf.parse("16/02/2021"), "Bom dia", "Acordei feliz hoje", new AuthorDTO(us1));
         Post post3 = new Post(null, sdf.parse("17/02/2021"), "Curso", "Bora estudar um pouco mais - Workshop Spring Boot com JAVA e MongoDB", new AuthorDTO(us4));
 
+        CommentDTO cm1 = new CommentDTO("Boa viagem mano!", sdf.parse("15/02/2021"), new AuthorDTO(us2));
+        CommentDTO cm2 = new CommentDTO("Aproveite!", sdf.parse("16/02/2021"), new AuthorDTO(us3));
+        CommentDTO cm3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("17/02/2021"), new AuthorDTO(us2));
+        CommentDTO cm4 = new CommentDTO("Tá feliz porque quer", sdf.parse("17/03/2021"), new AuthorDTO(us4));
+
+        post1.getComment().addAll(Arrays.asList(cm1, cm2));
+        post2.getComment().addAll(Arrays.asList(cm3, cm4));
         postRepository.saveAll(Arrays.asList(post1, post2, post3));
 
         us1.getPost().addAll(Arrays.asList(post1, post2));
