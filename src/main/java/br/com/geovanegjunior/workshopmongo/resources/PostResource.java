@@ -1,18 +1,14 @@
 package br.com.geovanegjunior.workshopmongo.resources;
 
 import br.com.geovanegjunior.workshopmongo.domain.Post;
-import br.com.geovanegjunior.workshopmongo.domain.User;
-import br.com.geovanegjunior.workshopmongo.dto.UserDTO;
+import br.com.geovanegjunior.workshopmongo.resources.util.URL;
 import br.com.geovanegjunior.workshopmongo.service.PostService;
-import br.com.geovanegjunior.workshopmongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value="/posts")
@@ -28,4 +24,12 @@ public class PostResource {
         return ResponseEntity.ok().body(post);
     }
 
+    @GetMapping(value="/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "title", defaultValue = "") String title) {
+
+        System.out.println("Texto: " + title);
+        title = URL.decodeParam(title);
+        List<Post> post = postService.findByTitle(title);
+        return ResponseEntity.ok().body(post);
+    }
 }
